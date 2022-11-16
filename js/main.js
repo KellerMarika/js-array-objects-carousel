@@ -47,10 +47,12 @@ const images = [
 /****** LET *******************************/
 /* contatore */
 let dataCounter = 0;
-let sliderImg_El
-let src
-let title
-let text
+let sliderImg_El;
+let urlImg;
+let titleImg;
+let textImg;
+
+let unactiveThumbnails
 
 
 //creo slider label 
@@ -75,11 +77,11 @@ sliderLabel_El.append(sliderText_El);
 //per questo motivo invoco una arrowfunction x che ha lo scopo di definire gli argomenti necessari a far partire correttamente la mia function utilities invocata al suo interno.
 images.forEach((element, i) => {
 
-    src = images[i].image
-    title = images[i].title
-    text = images[i].text
+    urlImg = images[i].image;
+    titleImg = images[i].title;
+    textImg = images[i].text;
 
-    const thumbnail_El = createImage(src, title, "thumbnail-img");
+    const thumbnail_El = createImage(urlImg, titleImg, "thumbnail-img");
     //questa piccola stringa è al centro di tutto il progetto
     thumbnail_El.dataset.thumbnail = i;
 
@@ -88,10 +90,10 @@ images.forEach((element, i) => {
     if (i === 0) {
         thumbnail_El.classList.add("active");
 
-        sliderImg_El = createImage(src, title, "slider-img");
+        sliderImg_El = createImage(urlImg, titleImg, "slider-img");
 
-        sliderTitle_El.append(title);
-        sliderText_El.append(text);
+        sliderTitle_El.append(titleImg);
+        sliderText_El.append(textImg);
         sliderContainer_El.append(sliderImg_El);
     }
 
@@ -107,40 +109,47 @@ function selectSlide() {
     //aggiungo classe alla thumb cliccata
     this.classList.add("active");
 
+    //recupero tutte le thumbs a parte quella cliccata e li colloco in un array
+
+  /*   unactiveThumbnails= document.querySelectorAll(`[data-thumbnail="${dataCounter}" ]`) */
+
+    console.log("recupero tramite dataCounter= ", document.querySelector(`[data-thumbnail= "${dataCounter}" ]`));
+    console.log("recupero solo dataset senza counter= ", document.querySelectorAll(`[data-thumbnail]`));
+    console.log("recupero solo dataset senza counter= ", document.querySelectorAll(`[data-thumbnail]:not([data-thumbnail= "${dataCounter}" ])`));
+
     //cambio il testo e l'immagine dello slider con i valori delle proprietà dell'oggetto che nell'arry images ha indice === datacounter
 
     //recupero i valori delle proprietà da innerare
-    src = images[dataCounter].image
-    title = images[dataCounter].title
-    text = images[dataCounter].text
+    urlImg = images[dataCounter].image;
+    titleImg = images[dataCounter].title;
+    textImg = images[dataCounter].text;
     console.log(images[dataCounter]);
 
     //stampo
 
+    //cambio i valori dell'immagine
+    sliderImg_El.src = urlImg;
+    sliderImg_El.alt = titleImg;
     console.log(sliderImg_El);
 
-
+    //stampo nel label
+    sliderTitle_El.innerHTML=titleImg
+    sliderText_El.innerHTML=textImg
     images.forEach((element, i) => {
 
-        /*         src = images[dataCounter].image
-                title = images[dataCounter].title
-                text = images[dataCounter].text
         
-                 */
 
-
-        //solo la prima di default deve essere active
- /*        if (i === dataCounter) {
-
-
-            const sliderImg_El = createImage(src, title, "slider-img");
-
-            sliderTitle_El.append(title);
-            sliderText_El.append(text);
-            sliderContainer_El.append(sliderImg_El);
-        }
-
-        thumbnailsContainer_El.append(thumbnail_El); */
+           /*      if (i === dataCounter) {
+        
+        
+                    const sliderImg_El = createImage(src, title, "slider-img");
+        
+                    sliderTitle_El.append(title);
+                    sliderText_El.append(text);
+                    sliderContainer_El.append(sliderImg_El);
+                }
+        
+                thumbnailsContainer_El.append(thumbnail_El);  */
         //console.log(thumbnail_El);
     });
 
