@@ -111,46 +111,39 @@ function selectSlide() {
 
     //recupero tutte le thumbs a parte quella cliccata e li colloco in un array
 
-  /*   unactiveThumbnails= document.querySelectorAll(`[data-thumbnail="${dataCounter}" ]`) */
+    //#che belli i selettori avanzati <3
+    unactiveThumbnails = document.querySelectorAll(`[data-thumbnail]:not([data-thumbnail= "${dataCounter}" ])`);
 
-    console.log("recupero tramite dataCounter= ", document.querySelector(`[data-thumbnail= "${dataCounter}" ]`));
-    console.log("recupero solo dataset senza counter= ", document.querySelectorAll(`[data-thumbnail]`));
-    console.log("recupero solo dataset senza counter= ", document.querySelectorAll(`[data-thumbnail]:not([data-thumbnail= "${dataCounter}" ])`));
+    //ciclo sull'arrat delle thumbs da disattivare
+    unactiveThumbnails.forEach((element, i) => {
+        unactiveThumbnails[i].classList.toggle("active", false);
+        //console.log(unactiveThumbnails[i]);
+    });
+    //console.log("recupero tramite dataCounter= ", document.querySelector(`[data-thumbnail= "${dataCounter}" ]`));
+    //console.log("recupero solo dataset senza counter= ", document.querySelectorAll(`[data-thumbnail]`));
+    //console.log("recupero solo dataset senza counter= ", document.querySelectorAll(`[data-thumbnail]:not([data-thumbnail= "${dataCounter}" ])`));
+
 
     //cambio il testo e l'immagine dello slider con i valori delle proprietà dell'oggetto che nell'arry images ha indice === datacounter
-
     //recupero i valori delle proprietà da innerare
     urlImg = images[dataCounter].image;
     titleImg = images[dataCounter].title;
     textImg = images[dataCounter].text;
-    console.log(images[dataCounter]);
+    //console.log(images[dataCounter]);
 
     //stampo
 
     //cambio i valori dell'immagine
     sliderImg_El.src = urlImg;
     sliderImg_El.alt = titleImg;
-    console.log(sliderImg_El);
+    //console.log(sliderImg_El);
 
     //stampo nel label
-    sliderTitle_El.innerHTML=titleImg
-    sliderText_El.innerHTML=textImg
+    sliderTitle_El.innerHTML = titleImg
+    sliderText_El.innerHTML = textImg
     images.forEach((element, i) => {
 
-        
 
-           /*      if (i === dataCounter) {
-        
-        
-                    const sliderImg_El = createImage(src, title, "slider-img");
-        
-                    sliderTitle_El.append(title);
-                    sliderText_El.append(text);
-                    sliderContainer_El.append(sliderImg_El);
-                }
-        
-                thumbnailsContainer_El.append(thumbnail_El);  */
-        //console.log(thumbnail_El);
     });
 
 
