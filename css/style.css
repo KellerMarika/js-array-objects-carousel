@@ -1,4 +1,4 @@
-* {}
+* {border:1px solid red}
 
 body{
     font-family: 'Roboto', sans-serif;
@@ -71,3 +71,6 @@ img {
     overflow: hidden;
 }
 
+.slider-label{
+padding:40px 200px;
+}
