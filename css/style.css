@@ -1,0 +1,73 @@
+* {}
+
+body{
+    font-family: 'Roboto', sans-serif;
+}
+.row {
+    border-color: greenyellow;
+}
+
+[class^=col] {
+    border-color: rgb(255, 0, 0);
+}
+
+section {
+    position: relative;
+    transform: translateY(20%);
+}
+
+img {
+    object-fit: cover;
+    object-position: center;
+    width: 100%;
+    height: 100%;
+}
+
+/*** CLASS UTILITIES ************************/
+
+.my-btn {
+    position: absolute;
+    width: fit-content;
+    left: 50%;
+    transform: translateX(-50%);
+    display: block;
+    border-radius: 50%;
+    aspect-ratio: 1/1;
+    opacity: .5;
+    background-color: rgb(255, 1, 1);
+    color: white;
+    font-size: 1.4rem;
+    z-index: 200;
+    border: none;
+}
+
+
+.my-btn:hover {
+    opacity: 1;
+}
+
+
+.thumbnail-img {
+    height: 20%;
+    aspect-ratio: 16/9;
+    filter: brightness(0.4);
+}
+
+.thumbnail-img.active {
+    filter: brightness(1);
+    border: 4px solid red;
+}
+.thumbnail-img:hover{
+    filter: brightness(1);
+}
+
+/********* CONTAINERS ********************/
+
+
+#slider-container,
+.col-2>div,
+#thumbnails-container {
+    height: 500px;
+    overflow: hidden;
+}
+

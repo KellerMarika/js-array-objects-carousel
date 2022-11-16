@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+    <!-- indispensabile per far funzionare le media-queries -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+
+    <title>CAROSELLO LIKE A PRO</title>
+
+
+    <!-- font-family: 'Roboto', sans-serif; -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap"
+        rel="stylesheet">
+
+    <!-- font-family: fontawesome -->
+    <script src="https://kit.fontawesome.com/a19b158346.js" crossorigin="anonymous"></script>
+
+    <!-- bootstrap -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css">
+    <!-- my-css -->
+    <link rel="stylesheet" href="css/style.css">
+</head>
+
+<body>
+
+
+    <section>
+        <div class="container">
+            <h1>CAROSELLO FIGO (e funzionante?)</h1>
+
+            <div class="row">
+                <div class="col-10 p-0 ">
+                    <div id="slider-container" class="d-flex">
+                    </div>
+                </div>
+
+
+                <div class="col-2 p-0">
+                    <div class="position-relative">
+
+                        <button type="button" name="button" class="my-btn btn-preview top-0">
+                            <i class="fa-solid fa-chevron-up"></i>
+                        </button>
+
+                        <button type="button" name="button" class="my-btn btn-next bottom-0 ">
+                            <i class="fa-solid fa-chevron-down"></i>
+                        </button>
+
+                        <div id="thumbnails-container" class="">
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+    <script src="js/main.js"></script>
+</body>
+
+</html>
