@@ -56,129 +56,7 @@ let activeThumbnail
 let unactiveThumbnails = []
 
 
-//creo slider label 
-const sliderLabel_El = createElement("div", "slider-label", "position-absolute");
-sliderLabel_El.classList.add("bottom-0");
-sliderLabel_El.classList.add("end-0");
-console.log(sliderLabel_El);
-
-sliderContainer_El.append(sliderLabel_El);
-//innerHtml del valore della proprietà title 
-const sliderTitle_El = createElement("h2", "sliderTitle", "title");
-//innerHtml del valore della proprietà text
-const sliderText_El = createElement("p", "sliderText", "subtitle");
-
-sliderLabel_El.append(sliderTitle_El);
-sliderLabel_El.append(sliderText_El);
-
-//HO BISOGNO DI UN ARRAY DELLE THUMBS???? proviamo senza
-//uso forEach(per il momento)
-
-//voglio sfruttare le mie f Utilities() ma non posso farlo invocandole come argomento el forEach, perchè non sarebbe in grado di recuperare da essa gli argomenti necessari al suo corretto funzionamento.
-//per questo motivo invoco una arrowfunction x che ha lo scopo di definire gli argomenti necessari a far partire correttamente la mia function utilities invocata al suo interno.
-images.forEach((element, i) => {
-
-    urlImg = images[i].image;
-    titleImg = images[i].title;
-    textImg = images[i].text;
-
-    const thumbnail_El = createImage(urlImg, titleImg, "thumbnail-img");
-    //questa piccola stringa è al centro di tutto il progetto
-    thumbnail_El.dataset.thumbnail = i;
-
-    thumbnail_El.addEventListener("click", selectSlide);
-    //solo la prima di default deve essere active
-    if (i === 0) {
-        dataCounter = 0
-        thumbnail_El.classList.add("active");
-
-        sliderImg_El = createImage(urlImg, titleImg, "slider-img");
-
-        sliderTitle_El.append(titleImg);
-        sliderText_El.append(textImg);
-        sliderContainer_El.append(sliderImg_El);
-    }
-
-    thumbnailsContainer_El.append(thumbnail_El);
-    //console.log(thumbnail_El);
-});
-
-
-function selectSlide() {
-    //aggiorno data counter
-    dataCounter = +this.dataset.thumbnail;
-    console.log("dataCounter = ", dataCounter);
-    //aggiungo classe alla thumb cliccata
-    this.classList.add("active");
-
-    //creo una funzione che disattiva tutte le thumbnail con dataset diverso da quello della thumb appena cliccata
-    disactiveOldThumbnails()
-
-    replaceSlide()
-}
-
-
-
-/* INIZIO FUNZIONE NEXT  ***************************************/
-btnNext.addEventListener("click", nextSlide);
-
-function nextSlide() {
-
-    // a ogni cick incremento il counter di 1
-    dataCounter++
-    console.log("btnNext click", dataCounter);
-
-    //lenght è =5 ma il counter parte da 0 quindi l'ultimo valore disponibile è lenght -1
-    //se il contatore del bottone è maggiore dlla lenght di images 
-    if (dataCounter > (images.length - 1)) {
-        // console.log("counter if=", counter, images.length);
-        // ricomincia d'accapo
-        dataCounter = 0
-            ; console.log("btnNext click", dataCounter);
-    }
-
-    //recupero la thumbnail corrispondente alla posizione dopo il click (+1)
-
-    activeThumbnail = document.querySelector(`[data-thumbnail= "${dataCounter}" ]`);
-    //console.log(activeThumbnail);
-
-    activeThumbnail.classList.add("active");
-
-    disactiveOldThumbnails();
-
-    replaceSlide()
-};
-
-/* INIZIO FUNZIONE PREVIEW  ***************************************/
-
-btnPrev.addEventListener("click", prevSlide);
-
-function prevSlide() {
-
-    // a ogni cick decremento il counter di 1
-    dataCounter--
-    console.log("btnPrev click", dataCounter);
-
-    //lenght è =5 ma il counter parte da 0 quindi l'ultimo valore disponibile è lenght -1
-    //se il contatore del bottone è maggiore dlla lenght di images 
-    if (dataCounter < 0) {
-        // console.log("counter if=", counter, images.length);
-        // ricomincia d'accapo
-        dataCounter = images.length-1
-            ; console.log("btnNext click", dataCounter);
-    }
-
-    //recupero la thumbnail corrispondente alla posizione dopo il click (+1)
-
-    activeThumbnail = document.querySelector(`[data-thumbnail= "${dataCounter}" ]`);
-    //console.log(activeThumbnail);
-
-    activeThumbnail.classList.add("active");
-
-    disactiveOldThumbnails();
-
-    replaceSlide()
-};
+/***** FUNZIONI NOMINALI ****************************************/
 
 
 function disactiveOldThumbnails() {
@@ -218,25 +96,151 @@ function replaceSlide() {
     sliderText_El.innerHTML = textImg
 }
 
+/* CREAZIONE ELEMENTI ***************************/
+ 
+
+/* slider label */
+
+const sliderLabel_El = createElement("div", "slider-label", "position-absolute");
+sliderLabel_El.classList.add("bottom-0");
+sliderLabel_El.classList.add("end-0");
+console.log(sliderLabel_El);
+
+sliderContainer_El.append(sliderLabel_El);
+//innerHtml del valore della proprietà title 
+const sliderTitle_El = createElement("h2", "sliderTitle", "title");
+//innerHtml del valore della proprietà text
+const sliderText_El = createElement("p", "sliderText", "subtitle");
+
+sliderLabel_El.append(sliderTitle_El);
+sliderLabel_El.append(sliderText_El);
+
+//HO BISOGNO DI UN ARRAY DELLE THUMBS???? proviamo senza
+//uso forEach(per il momento)
+
+//voglio sfruttare le mie f Utilities() ma non posso farlo invocandole come argomento el forEach, perchè non sarebbe in grado di recuperare da essa gli argomenti necessari al suo corretto funzionamento.
+//per questo motivo invoco una arrowfunction x che ha lo scopo di definire gli argomenti necessari a far partire correttamente la mia function utilities invocata al suo interno.
+
+/* thumbnails e slide */
+images.forEach((element, i) => {
+
+    urlImg = images[i].image;
+    titleImg = images[i].title;
+    textImg = images[i].text;
+
+    const thumbnail_El = createImage(urlImg, titleImg, "thumbnail-img");
+    //questa piccola stringa è al centro di tutto il progetto
+    thumbnail_El.dataset.thumbnail = i;
+
+    thumbnail_El.addEventListener("click", selectSlide);
+    //solo la prima di default deve essere active
+    if (i === 0) {
+        dataCounter = 0
+        thumbnail_El.classList.add("active");
+
+        sliderImg_El = createImage(urlImg, titleImg, "slider-img");
+
+        sliderTitle_El.append(titleImg);
+        sliderText_El.append(textImg);
+        sliderContainer_El.append(sliderImg_El);
+    }
+
+    thumbnailsContainer_El.append(thumbnail_El);
+    //console.log(thumbnail_El);
+});
 
 
- 
- /* 
- 
-Milestone 0:
-Come nel primo carosello realizzato, focalizziamoci prima sulla creazione del markup statico: costruiamo il container e inseriamo l’immagine grande in modo da poter stilare lo slider.
-Milestone 1:
-Ora rimuoviamo i contenuti statici e usiamo l’array di oggetti letterali per popolare dinamicamente il carosello.
-Al click dell’utente sulle frecce verso sinistra o destra, l’immagine attiva diventerà visibile e dovremo aggiungervi titolo e testo.
-Milestone 2:
-Aggiungere il **ciclo infinito** del carosello. Ovvero se la miniatura attiva è la prima e l’utente clicca la freccia indietro, la miniatura che deve attivarsi sarà l’ultima e viceversa per l’ultima miniatura se l’utente clicca la freccia avanti.
-BONUS 1:
-Aggiungere le thumbnails (sottoforma di miniatura) ed al click attivare l’immagine corrispondente.
-BONUS 2:
-Aggiungere funzionalità di autoplay: dopo un certo periodo di tempo (3 secondi) l’immagine attiva dovrà cambiare alla successiva.
-BONUS 3:
+function selectSlide() {
+    //aggiorno data counter
+    dataCounter = +this.dataset.thumbnail;
+    console.log("dataCounter = ", dataCounter);
+    //aggiungo classe alla thumb cliccata
+    this.classList.add("active");
+
+    //disattiva tutte le thumbnail con dataset diverso da quello della thumb appena cliccata
+    disactiveOldThumbnails()
+
+    //sostituzione slide
+    replaceSlide()
+}
+
+
+
+/* INIZIO FUNZIONE NEXT  ***************************************/
+btnNext.addEventListener("click", nextSlide);
+
+function nextSlide() {
+
+    // a ogni cick incremento il counter di 1
+    dataCounter++
+    console.log("btnNext click", dataCounter);
+
+    //lenght è =5 ma il counter parte da 0 quindi l'ultimo valore disponibile è lenght -1
+    //se il contatore del bottone è maggiore dlla lenght di images 
+    if (dataCounter > (images.length - 1)) {
+        // console.log("counter if=", counter, images.length);
+        // ricomincia d'accapo
+        dataCounter = 0
+            ; console.log("btnNext click", dataCounter);
+    }
+
+    //recupero la thumbnail corrispondente alla posizione dopo il click (+1)
+
+    activeThumbnail = document.querySelector(`[data-thumbnail= "${dataCounter}" ]`);
+    //console.log(activeThumbnail);
+
+    activeThumbnail.classList.add("active");
+    //disattiva tutte le thumbnail con dataset diverso da quello della thumb appena cliccata
+    disactiveOldThumbnails();
+    //sostituzione slide
+    replaceSlide()
+};
+
+/* INIZIO FUNZIONE PREVIEW  ***************************************/
+
+btnPrev.addEventListener("click", prevSlide);
+
+function prevSlide() {
+
+    // a ogni cick decremento il counter di 1
+    dataCounter--
+    console.log("btnPrev click", dataCounter);
+
+    //lenght è =5 ma il counter parte da 0 quindi l'ultimo valore disponibile è lenght -1
+    //se il contatore del bottone è maggiore dlla lenght di images 
+    if (dataCounter < 0) {
+        // console.log("counter if=", counter, images.length);
+        // ricomincia d'accapo
+        dataCounter = images.length - 1
+            ; console.log("btnNext click", dataCounter);
+    }
+
+    //recupero la thumbnail corrispondente alla posizione dopo il click (+1)
+
+    activeThumbnail = document.querySelector(`[data-thumbnail= "${dataCounter}" ]`);
+    //console.log(activeThumbnail);
+
+    activeThumbnail.classList.add("active");
+    
+    //disattiva tutte le thumbnail con dataset diverso da quello della thumb appena cliccata
+    disactiveOldThumbnails();
+    //sostituzione slide
+    replaceSlide()
+};
+
+
+
+
+/* BONUS 2:
+Aggiungere funzionalità di autoplay: dopo un certo periodo di tempo (3 secondi) l’immagine attiva dovrà cambiare alla successiva. */
+
+setInterval(nextSlide,3000);
+
+
+
+/* BONUS 3:
 Aggiungere bottoni di start/stop e di inversione del meccanismo di autoplay.
-Buon lavoro e buon divertimento! :faccia_leggermente_sorridente: */
+Buon lavoro e buon divertimento! :faccia_leggermente_sorridente: */ 
 
 
 
