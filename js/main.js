@@ -19,16 +19,6 @@ const btnPrev = document.querySelector(".btn-preview");
 /* btn next */
 const btnNext = document.querySelector(".btn-next");
 //console.log(btnNext);
-
-/* contatore */
-let counter = 0;
-
-let src
-let title
-let text
-
-
-
 const images = [
     {
         image: 'img/01.webp',
@@ -53,6 +43,16 @@ const images = [
     }
 ];
 
+
+/****** LET *******************************/
+/* contatore */
+let dataCounter = 0;
+let sliderImg_El
+let src
+let title
+let text
+
+
 //creo slider label 
 const sliderLabel_El = createElement("div", "slider-label", "position-absolute");
 sliderLabel_El.classList.add("bottom-0");
@@ -68,7 +68,6 @@ const sliderText_El = createElement("p", "sliderText", "subtitle");
 sliderLabel_El.append(sliderTitle_El);
 sliderLabel_El.append(sliderText_El);
 
-
 //HO BISOGNO DI UN ARRAY DELLE THUMBS???? proviamo senza
 //uso forEach(per il momento)
 
@@ -82,14 +81,14 @@ images.forEach((element, i) => {
 
     const thumbnail_El = createImage(src, title, "thumbnail-img");
     //questa piccola stringa è al centro di tutto il progetto
-    thumbnail_El.dataset.thumbnail = i + 1;
+    thumbnail_El.dataset.thumbnail = i;
 
     thumbnail_El.addEventListener("click", selectSlide);
     //solo la prima di default deve essere active
     if (i === 0) {
         thumbnail_El.classList.add("active");
 
-        const sliderImg_El = createImage(src, title, "slider-img");
+        sliderImg_El = createImage(src, title, "slider-img");
 
         sliderTitle_El.append(title);
         sliderText_El.append(text);
@@ -97,13 +96,62 @@ images.forEach((element, i) => {
     }
 
     thumbnailsContainer_El.append(thumbnail_El);
-    console.log(thumbnail_El);
+    //console.log(thumbnail_El);
 });
 
 
 function selectSlide() {
-    console.log("sei una pippa");
+    //aggiorno data counter
+    dataCounter = +this.dataset.thumbnail;
+    console.log("dataCounter = ", dataCounter);
+    //aggiungo classe alla thumb cliccata
+    this.classList.add("active");
+
+    //cambio il testo e l'immagine dello slider con i valori delle proprietà dell'oggetto che nell'arry images ha indice === datacounter
+
+    //recupero i valori delle proprietà da innerare
+    src = images[dataCounter].image
+    title = images[dataCounter].title
+    text = images[dataCounter].text
+    console.log(images[dataCounter]);
+
+    //stampo
+
+    console.log(sliderImg_El);
+
+
+    images.forEach((element, i) => {
+
+        /*         src = images[dataCounter].image
+                title = images[dataCounter].title
+                text = images[dataCounter].text
+        
+                 */
+
+
+        //solo la prima di default deve essere active
+ /*        if (i === dataCounter) {
+
+
+            const sliderImg_El = createImage(src, title, "slider-img");
+
+            sliderTitle_El.append(title);
+            sliderText_El.append(text);
+            sliderContainer_El.append(sliderImg_El);
+        }
+
+        thumbnailsContainer_El.append(thumbnail_El); */
+        //console.log(thumbnail_El);
+    });
+
+
+
+
+
+
 }
+
+
 /* 
 
 funzione aggiornaCounter(){
