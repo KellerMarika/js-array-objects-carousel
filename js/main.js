@@ -49,21 +49,36 @@ const images = [
 ];
 
 //creo slider label 
-const sliderLabel_El = createElement("div","slider-label","position-absolute");
+const sliderLabel_El = createElement("div", "slider-label", "position-absolute");
 sliderLabel_El.classList.add("bottom-0");
 sliderLabel_El.classList.add("end-0");
 console.log(sliderLabel_El);
 
 sliderContainer_El.append(sliderLabel_El);
-
-const sliderTitle_El= createElement("h2","sliderTitle","title");
-const sliderText_El= createElement("p","sliderText","subtitle");
+//innerHtml del valore della proprietà title 
+const sliderTitle_El = createElement("h2", "sliderTitle", "title");
+//innerHtml del valore della proprietà text
+const sliderText_El = createElement("p", "sliderText", "subtitle");
 
 sliderLabel_El.append(sliderTitle_El);
 sliderLabel_El.append(sliderText_El);
 
 
+//HO BISOGNO DI UN ARRAY DELLE THUMBS???? proviamo senza
+//uso forEach(per il momento)
 
+//voglio sfruttare le mie f Utilities() ma non posso farlo invocandole come argomento el forEach, perchè non sarebbe in grado di recuperare da essa gli argomenti necessari al suo corretto funzionamento.
+//per questo motivo invoco una arrowfunction x che ha lo scopo di definire gli argomenti necessari a far partire correttamente la mia function utilities invocata al suo interno.
+images.forEach((element, i) => {
+
+    const src=images[i].image
+    const alt=images[i].title
+
+    let thumbnail_El = createImage(src, alt, "thumbnail-img");
+
+    thumbnailsContainer_El.append(thumbnail_El);
+    //console.log(thumbnail_El)
+});
 /* 
 questa volta voglio provarea stampare una sola immagine + label nello slider, a seconda della thums o del pulsante che viene premuto (correlazione tra indice dell'oggetto nell'array e dataset delle thumb)
 
