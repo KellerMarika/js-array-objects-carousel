@@ -1,16 +1,16 @@
-* {border:1px solid red}
+* {border:1px solid rgb(122, 116, 216)}
 
 body{
     font-family: 'Roboto', sans-serif;
 }
-.row {
+/* .row {
     border-color: greenyellow;
 }
 
 [class^=col] {
     border-color: rgb(255, 0, 0);
 }
-
+ */
 section {
     position: relative;
     transform: translateY(20%);
@@ -72,5 +72,7 @@ img {
 }
 
 .slider-label{
-padding:40px 200px;
+color: white;
+text-align: end;
+padding: 0 20px;
 }

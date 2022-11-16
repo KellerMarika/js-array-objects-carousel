@@ -23,6 +23,11 @@ const btnNext = document.querySelector(".btn-next");
 /* contatore */
 let counter = 0;
 
+let src
+let title
+let text
+
+
 
 const images = [
     {
@@ -71,38 +76,35 @@ sliderLabel_El.append(sliderText_El);
 //per questo motivo invoco una arrowfunction x che ha lo scopo di definire gli argomenti necessari a far partire correttamente la mia function utilities invocata al suo interno.
 images.forEach((element, i) => {
 
-    const src=images[i].image
-    const alt=images[i].title
+    src = images[i].image
+    title = images[i].title
+    text = images[i].text
 
-    let thumbnail_El = createImage(src, alt, "thumbnail-img");
+    const thumbnail_El = createImage(src, title, "thumbnail-img");
+    //questa piccola stringa è al centro di tutto il progetto
+    thumbnail_El.dataset.thumbnail = i + 1;
+
+    thumbnail_El.addEventListener("click", selectSlide);
+    //solo la prima di default deve essere active
+    if (i === 0) {
+        thumbnail_El.classList.add("active");
+
+        const sliderImg_El = createImage(src, title, "slider-img");
+
+        sliderTitle_El.append(title);
+        sliderText_El.append(text);
+        sliderContainer_El.append(sliderImg_El);
+    }
 
     thumbnailsContainer_El.append(thumbnail_El);
-    //console.log(thumbnail_El)
+    console.log(thumbnail_El);
 });
-/* 
-questa volta voglio provarea stampare una sola immagine + label nello slider, a seconda della thums o del pulsante che viene premuto (correlazione tra indice dell'oggetto nell'array e dataset delle thumb)
 
-counter=0
 
-//creo slider label 
-sliderLabel_El= createElement("div","sliderLabel","x")
-sliderTitle_El= createElement("div","sliderTitle","x")
-slidertext_El= createElement("div","sliderText","x")
-
-appendo slider text e slider title a slider label
-appendo il label in absolute a bottom 0 dello slider-container
-
-cro un ciclo (for each perchè non deve ritornarmi nessun array){
-    attraverso una f utilities creo le mie immagini.
-    img.dataset.thumb=i+1________________________________________non mi avanzrà tempo ma devo davvero sapere come inserire questo passaggio in funzione generica 
-
-    img la stampo in thumb-container
-
-    thumbs.add event listner("click",funzione aggiornaCounter() );
-
-    se i===0 allora  aggiungo classi active
+function selectSlide() {
+    console.log("sei una pippa");
 }
-
+/* 
 
 funzione aggiornaCounter(){
     devo controllare il dataset dell'elemento cliccato (this.dataset.thumb?)__________________________
