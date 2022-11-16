@@ -46,13 +46,14 @@ const images = [
 
 /****** LET *******************************/
 /* contatore */
-let dataCounter = 0;
+let dataCounter;
 let sliderImg_El;
 let urlImg;
 let titleImg;
 let textImg;
 
-let unactiveThumbnails
+let activeThumbnail
+let unactiveThumbnails = []
 
 
 //creo slider label 
@@ -88,6 +89,7 @@ images.forEach((element, i) => {
     thumbnail_El.addEventListener("click", selectSlide);
     //solo la prima di default deve essere active
     if (i === 0) {
+        dataCounter = 0
         thumbnail_El.classList.add("active");
 
         sliderImg_El = createImage(urlImg, titleImg, "slider-img");
@@ -109,6 +111,77 @@ function selectSlide() {
     //aggiungo classe alla thumb cliccata
     this.classList.add("active");
 
+    //creo una funzione che disattiva tutte le thumbnail con dataset diverso da quello della thumb appena cliccata
+    disactiveOldThumbnails()
+
+    replaceSlide()
+}
+
+
+
+/* INIZIO FUNZIONE NEXT  ***************************************/
+btnNext.addEventListener("click", nextSlide);
+
+function nextSlide() {
+
+    // a ogni cick incremento il counter di 1
+    dataCounter++
+    console.log("btnNext click", dataCounter);
+
+    //lenght è =5 ma il counter parte da 0 quindi l'ultimo valore disponibile è lenght -1
+    //se il contatore del bottone è maggiore dlla lenght di images 
+    if (dataCounter > (images.length - 1)) {
+        // console.log("counter if=", counter, images.length);
+        // ricomincia d'accapo
+        dataCounter = 0
+            ; console.log("btnNext click", dataCounter);
+    }
+
+    //recupero la thumbnail corrispondente alla posizione dopo il click (+1)
+
+    activeThumbnail = document.querySelector(`[data-thumbnail= "${dataCounter}" ]`);
+    //console.log(activeThumbnail);
+
+    activeThumbnail.classList.add("active");
+
+    disactiveOldThumbnails();
+
+    replaceSlide()
+};
+
+/* INIZIO FUNZIONE PREVIEW  ***************************************/
+
+btnPrev.addEventListener("click", prevSlide);
+
+function prevSlide() {
+
+    // a ogni cick decremento il counter di 1
+    dataCounter--
+    console.log("btnPrev click", dataCounter);
+
+    //lenght è =5 ma il counter parte da 0 quindi l'ultimo valore disponibile è lenght -1
+    //se il contatore del bottone è maggiore dlla lenght di images 
+    if (dataCounter < 0) {
+        // console.log("counter if=", counter, images.length);
+        // ricomincia d'accapo
+        dataCounter = images.length-1
+            ; console.log("btnNext click", dataCounter);
+    }
+
+    //recupero la thumbnail corrispondente alla posizione dopo il click (+1)
+
+    activeThumbnail = document.querySelector(`[data-thumbnail= "${dataCounter}" ]`);
+    //console.log(activeThumbnail);
+
+    activeThumbnail.classList.add("active");
+
+    disactiveOldThumbnails();
+
+    replaceSlide()
+};
+
+
+function disactiveOldThumbnails() {
     //recupero tutte le thumbs a parte quella cliccata e li colloco in un array
 
     //#che belli i selettori avanzati <3
@@ -122,7 +195,9 @@ function selectSlide() {
     //console.log("recupero tramite dataCounter= ", document.querySelector(`[data-thumbnail= "${dataCounter}" ]`));
     //console.log("recupero solo dataset senza counter= ", document.querySelectorAll(`[data-thumbnail]`));
     //console.log("recupero solo dataset senza counter= ", document.querySelectorAll(`[data-thumbnail]:not([data-thumbnail= "${dataCounter}" ])`));
+}
 
+function replaceSlide() {
 
     //cambio il testo e l'immagine dello slider con i valori delle proprietà dell'oggetto che nell'arry images ha indice === datacounter
     //recupero i valori delle proprietà da innerare
@@ -141,90 +216,13 @@ function selectSlide() {
     //stampo nel label
     sliderTitle_El.innerHTML = titleImg
     sliderText_El.innerHTML = textImg
-    images.forEach((element, i) => {
-
-
-    });
-
-
-
-
-
-
 }
 
 
-/* 
 
-funzione aggiornaCounter(){
-    devo controllare il dataset dell'elemento cliccato (this.dataset.thumb?)__________________________
-
-    registrare che il counter è === dataset dell'elemento cliccato
-    aggiungere la classe active all'elemento cliccato
-
-    ciclo for each
-        
-    eliminare la classe active da qualunque altro elemento con dataset differente (toggle(active, false));  
-
-  trovare nell'array di immagini l'oggetto con indice corrispondente al dataset della thumb cliccata (occhio allo 0! (i-1)) e innerare(sostituzine) i valori delle sue proprietà nello slider (e nel label).
-
-}
-
-bottoni next e preview
-
-
-btn-next add event listner{
-    deve rilevare quale sia il counter 
-    
-    devo rimuovere active all'elemento con dataset === counter
-
-    devo incrementare counter di 1
-    counter ++
  
-    counter non deve poter andare oltre al numero massimo delle immagini (images.lenght).
-    SE counter>images.Lenght allora counter=0 (if)
-    (nell'esercizio precedente mi dava errore e si sfalsava ma adesso che è legato al dataset dovrebbe funzionare);
-    
-    devo dare active all'elemento con tataset === counter
-
-    trovare nell'array di immagini l'oggetto con indice corrispondente al dataset della thumb cliccata (occhio allo 0! (i-1)) e innerare(sostituzine) i valori delle sue proprietà nello slider (e nel label).
-}
-
-btn-prev add event listner{
-    deve rilevare quale sia il counter 
-    
-    devo rimuovere active all'elemento con dataset === counter
-
-    devo decrementare counter di 1
-    counter --
+ /* 
  
-    counter non deve poter andare sotto 0.
-    SE counter<0 allora counter=images.lenght(if)
-    (nell'esercizio precedente mi dava errore e si sfalsava ma adesso che è legato al dataset dovrebbe funzionare);
-    
-    devo dare active all'elemento con dataset === counter
-
-    trovare nell'array di immagini l'oggetto con indice corrispondente al dataset della thumb cliccata (occhio allo 0! (i-1)) e innerare(sostituzine) i valori delle sue proprietà nello slider (e nel label).
-}
-
-
-che dio me la mandi buona!
-*/
-
-
-
-
-/* Dato un array di oggetti letterali con:
- - url dell’immagine
- - titolo
- - descrizione
-Creare un carosello come nella foto allegata.
-
-
-
-
-
-
 Milestone 0:
 Come nel primo carosello realizzato, focalizziamoci prima sulla creazione del markup statico: costruiamo il container e inseriamo l’immagine grande in modo da poter stilare lo slider.
 Milestone 1:
@@ -239,3 +237,12 @@ Aggiungere funzionalità di autoplay: dopo un certo periodo di tempo (3 secondi)
 BONUS 3:
 Aggiungere bottoni di start/stop e di inversione del meccanismo di autoplay.
 Buon lavoro e buon divertimento! :faccia_leggermente_sorridente: */
+
+
+
+
+
+
+
+
+
