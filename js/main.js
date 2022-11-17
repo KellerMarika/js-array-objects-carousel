@@ -49,7 +49,6 @@ const playBtnIcons = [
 /****** LET *******************************/
 
 /* contatore */
-let playBtnCounter = 1
 let dataCounter;
 let sliderImg_El;
 let urlImg;
@@ -266,13 +265,13 @@ autoplay{
 */
 
 
-let playNextIn_interval
+/* let playNextIn_interval
 
 playBtn_El.addEventListener("click", autoplay);
 playBtn_El.addEventListener("click", autoplay());//___________scorretto ma senza non funziona più??
 //_____________________________________non funziona neanche con funzione non nominata dichiarata nello stesso punto.....BOH CHIEDO
 /* funzione autoplay next funzionante */
-function autoplay() {
+/* function autoplay() {
     playBtnCounter++
     console.log(playBtnCounter, "playBtnCounter");
     console.log(this)
@@ -298,7 +297,7 @@ function revertAutoplay() {
     revertBtnIcon_El.style.transform = "rotate(360deg)"
 }
 
-
+ */
 
 /* funzione autoplay preview funzionante */
 /* 
@@ -381,10 +380,73 @@ function autoplay (f callback){
 eventualmente creare animazione, ma ho cose più grosse su cui lavorare */
 
 
+let revertCounter = 1
+let playBtnCounter = 1
+let callbackfunction=nextSlide;
+
+revertBtn_El.addEventListener("click", () => { switchCallbackFunction(nextSlide, prevSlide) });
+
+
+
+function switchCallbackFunction(callbackfunction1, callbackfunction2) {
+    revertCounter++
+    console.log("switchCallbackFunction revertCounter= ", revertCounter);
+
+    if (revertCounter % 2 === 0) {
+        callbackfunction = callbackfunction1
+    } else {
+        callbackfunction = callbackfunction2
+    }
+    console.log("switchCallbackFunction revertCounter= ", revertCounter, callbackfunction);
+    return (callbackfunction);
+}
+
+
+playBtn_El.addEventListener("click", ()=>{autoplay(callbackfunction)});
+
+function autoplay(callbackfunction){
+    console.log("autoplay   callbackfunction is=", callbackfunction);
 
 
 
 
+}
+/*  console.log(switchCallbackFunction("a","b")); */
+/* 
 
+una roba tipo 
 
- 
+counter=0
+f reverse(nextSlide, prevSlide){
+    counter++
+    f revertSense(){ 
+    quando clicco, 
+    se (counter%2===0){return true}
+    } 
+if (revertSense ===true){
+    f callback=nextSlide
+}else{
+    f callback=prevSlide
+}
+
+function autoplay (f callback){
+
+ playBtnCounter++
+    console.log(playBtnCounter, "playBtnCounter");
+    console.log(this)
+    console.log(playBtnCounter, playBtnCounter % 2);
+
+    if (playBtnCounter % 2 !== 0) {
+
+        //deve partire l'autoplay
+        playBtn_El.innerHTML = playBtnIcons[1];
+        playNextIn_interval = setInterval(f callback, 3000);_________(o è next o è prev)
+    } else {
+        //deve blovvare l'autoplay
+        playBtn_El.innerHTML = playBtnIcons[0];
+        clearInterval(playNextIn_interval);
+    }
+}
+(devo comunque settare un valore di default perchè il bottone play deve funzionare in maniera indipendente dal bottone revert)
+
+ */
