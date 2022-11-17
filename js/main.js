@@ -259,6 +259,12 @@ function switchCallbackFunction(callbackfunction1, callbackfunction2) {
 
     revertCounter++
     console.log("switchCallbackFunction revertCounter= ", revertCounter);
+    //QUI AVVIENE LA MAGIA
+    //se nel momento in cui clicco il revertBtn il playbtn è stato cliccato una sola volta, significa che la funzione autoplay() è nella prima if (modalità play) e ha il playBtnCounter dispari. 
+    if (playBtnCounter % 2 !== 0) {
+        //occorre invocare una sola volta la funzione autoplay, incrementare il playbtncounter di 1 e ripristinare la "condizione della seconda if (modalità pausa).
+        autoplay(callbackfunction);
+    }
 
     if (revertCounter % 2 === 0) {
         callbackfunction = callbackfunction1
@@ -287,7 +293,3 @@ function autoplay(callbackfunction) {
         clearInterval(autoplay_interval);
     }
 }
-
-    /* TO FIX_____________________________________________________________________________________ 
-    se clicco resetAutoplay(revertCounter++ e switch callbackfunction1 con callbackfunction2) prima di aver messo in pausa l'autoplay  if (playBtnCounter % 2 !== 0)
-    allora devo simulare un clic (avviare autoplay(callbackfunction) solo una volta*/
