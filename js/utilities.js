@@ -31,3 +31,21 @@ function createImage(srcURL, altDescription, class1) {
     return created_Img
 }
 
+
+/****  FUNZIONE CREA BOTTONI *************************************/
+/** crea un elemento di tipo button per cui bisogna specificare type, name e 2 classi
+ * 
+ * @param {string} type dovrebbe essere button || menu || reset || submit
+ * @param {string} name nome bottone
+ * @param {string} class1 una classe css
+ * @param {string} class2  una seconda classe css
+ * @returns    <button type=@type name=@name class= @class1 @class2></button>
+ */
+function createBtn(type,name,class1,class2) {
+    const created_Btn = document.createElement("button");
+    created_Btn.setAttribute('type', type);
+    created_Btn.name = name
+    created_Btn.classList.add(class1);
+    created_Btn.classList.add(class2);
+    return created_Btn
+};

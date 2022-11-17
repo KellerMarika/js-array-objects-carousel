@@ -1,16 +1,9 @@
-* {border:1px solid rgb(122, 116, 216)}
+/* * {border:1px solid rgb(122, 116, 216)} */
 
-body{
+body {
     font-family: 'Roboto', sans-serif;
 }
-/* .row {
-    border-color: greenyellow;
-}
 
-[class^=col] {
-    border-color: rgb(255, 0, 0);
-}
- */
 section {
     position: relative;
     transform: translateY(20%);
@@ -41,11 +34,14 @@ img {
     border: none;
 }
 
-
-.my-btn:hover {
+.my-btn:hover,
+.my-btn-autoplay:hover {
     opacity: 1;
 }
 
+.my-btn-autoplay> {
+    padding: 20px;
+}
 
 .thumbnail-img {
     height: 20%;
@@ -57,12 +53,12 @@ img {
     filter: brightness(1);
     border: 4px solid red;
 }
-.thumbnail-img:hover{
+
+.thumbnail-img:hover {
     filter: brightness(1);
 }
 
 /********* CONTAINERS ********************/
-
 
 #slider-container,
 .col-2>div,
@@ -71,8 +67,59 @@ img {
     overflow: hidden;
 }
 
-.slider-label{
-color: white;
-text-align: end;
-padding: 0 20px;
+.slider-label {
+    color: white;
+    text-align: end;
+    padding: 5px 20px;
+    width: 100%;
+    background-color: rgba(255, 0, 0, 0);
+    transition: background-color .2s;
 }
+
+.slider-label:hover {
+    background-color: rgb(255, 0, 0);
+}
+
+.autoplay-btn-container {
+    position: absolute;
+    top: 15px;
+    display: flex;
+    left: 50%;
+    top: 50%;
+    transform: translateX(-50%) translateY(-50%);
+}
+
+.autoplay-btn-container:hover{
+    background-color: rgb(255, 0, 0);
+}
+.autoplay-btn-container{
+    background-color: rgba(255, 0, 0, 0);
+    color: rgba(255, 255, 255, 0);
+    border-radius: 50px;
+    padding: 0 15px;
+}
+
+/* .my-btn-autoplay {
+    background-color: transparent;
+    top: 10px;
+    font-size: 1.4rem;
+    padding: 20px;
+    z-index: 200;
+    border: none;
+    color: rgba(255, 255, 255, 0);
+    transition: color .2s;
+} */
+.my-btn-autoplay:hover {
+    transform: scale(115%);
+}
+.my-btn-autoplay:active {
+    transform: scale(90%);
+}
+
+
+/* .autoplay-btn-container:hover .my-btn-autoplay{
+    color: rgb(255, 255, 255);
+    transition: background-color .2s;
+}
+
+ */
