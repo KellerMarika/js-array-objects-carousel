@@ -269,9 +269,9 @@ autoplay{
 let playNextIn_interval
 
 playBtn_El.addEventListener("click", autoplay);
-
-playBtn_El.addEventListener("click", autoplay());
-
+playBtn_El.addEventListener("click", autoplay());//___________scorretto ma senza non funziona più??
+//_____________________________________non funziona neanche con funzione non nominata dichiarata nello stesso punto.....BOH CHIEDO
+/* funzione autoplay next funzionante */
 function autoplay() {
     playBtnCounter++
     console.log(playBtnCounter, "playBtnCounter");
@@ -281,11 +281,11 @@ function autoplay() {
 
         //deve partire l'autoplay
         playBtn_El.innerHTML = playBtnIcons[1];
-       playNextIn_interval = setInterval(nextSlide, 3000);
+        playNextIn_interval = setInterval(nextSlide, 3000);
     } else {
         //deve blovvare l'autoplay
         playBtn_El.innerHTML = playBtnIcons[0];
-        clearInterval(playNextIn_interval);/* ______________________NON VA?!!! */
+        clearInterval(playNextIn_interval);
     }
 };
 
@@ -295,46 +295,90 @@ function revertAutoplay() {
     console.log(revertBtnIcon_El);
     revertBtnIcon_El = document.querySelector(".btn-revert i");
     console.log(revertBtnIcon_El);
-     revertBtnIcon_El.style.transform = "rotate(360deg)"
-    revertBtnIcon_El.style.transform = "rotate(0deg)" 
-/*     revertBtnIcon_El.classList.add("rotation"); */
-    
+    revertBtnIcon_El.style.transform = "rotate(360deg)"
 }
 
-/* playBtn_El.addEventListener("click", () => {
+
+
+/* funzione autoplay preview funzionante */
+/* 
+function autoplay() {
     playBtnCounter++
     console.log(playBtnCounter, "playBtnCounter");
     console.log(this)
     console.log(playBtnCounter, playBtnCounter % 2)
     if (playBtnCounter % 2 !== 0) {
 
-        playBtn_El.innerHTML= playBtnIcons[1];
-        
-
-
-    }else{
-        
-        playBtn_El.innerHTML= playBtnIcons[0];
-      
+        //deve partire l'autoplay
+        playBtn_El.innerHTML = playBtnIcons[1];
+        playNextIn_interval = setInterval(prevSlide, 3000);
+    } else {
+        //deve blovvare l'autoplay
+        playBtn_El.innerHTML = playBtnIcons[0];
+        clearInterval(playNextIn_interval);
     }
+};
 
-});
+revertBtn_El.addEventListener("click", revertAutoplay);
+
+function revertAutoplay() {
+    console.log(revertBtnIcon_El);
+    revertBtnIcon_El = document.querySelector(".btn-revert i");
+    console.log(revertBtnIcon_El);
+    revertBtnIcon_El.style.transform = "rotate(360deg)"
+} */
+
+/* 
+TO FIX
+
+non ho proprio capito perchè devo mantenere entrambi gli addEventListner click", autoplay.
+se ne rimuovo uno cessa di funzionare, quello sintatticamente corretto è quello sopra.
+
+adesso sono stanca ma credo che, ribaltando tutto, il bottone revert, potrebbe avere la funzione di cambiare la callbackfunction invocata dentro alla funzione autoplay come argomento.
+
+una roba tipo 
+
+counter=0
+f reverse(nextSlide, prevSlide){
+    counter++
+    f revertSense(){ 
+    quando clicco, 
+    se (counter%2===0){return true}
+    } 
+if (revertSense ===true){
+    f callback=nextSlide
+}else{
+    f callback=prevSlide
+}
+
+function autoplay (f callback){
+
+ playBtnCounter++
+    console.log(playBtnCounter, "playBtnCounter");
+    console.log(this)
+    console.log(playBtnCounter, playBtnCounter % 2);
+
+    if (playBtnCounter % 2 !== 0) {
+
+        //deve partire l'autoplay
+        playBtn_El.innerHTML = playBtnIcons[1];
+        playNextIn_interval = setInterval(f callback, 3000);_________(o è next o è prev)
+    } else {
+        //deve blovvare l'autoplay
+        playBtn_El.innerHTML = playBtnIcons[0];
+        clearInterval(playNextIn_interval);
+    }
+}
+(devo comunque settare un valore di default perchè il bottone play deve funzionare in maniera indipendente dal bottone revert)
 
 
- */
 
 
 
 
 
-
-/* const playBtnIcon_El =createElement("i","fa-solid","fa-play");
-const pauseBtnIcon_El =createElement("i","fa-solid","fa-pause");
-     */
-
-
-
-
+ le freccette ruotano una volta sola, perchè ovviamente una vota che la classe è stata assegnata è fatta.
+eventualmente creare animazione, ma ho cose più grosse su cui lavorare */
 
 
 
@@ -343,4 +387,4 @@ const pauseBtnIcon_El =createElement("i","fa-solid","fa-pause");
 
 
 
-
+ 
