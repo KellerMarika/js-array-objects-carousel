@@ -49,7 +49,7 @@ const playBtnIcons = [
 /****** LET *******************************/
 
 /* contatore */
-let playBtnCounter = 0
+let playBtnCounter = 1
 let dataCounter;
 let sliderImg_El;
 let urlImg;
@@ -129,12 +129,12 @@ const pauseBtnIcon_El = createElement("i", "fa-solid", "fa-pause"); */
 
 
 
-const revertBtnIcon_El = createElement("i", "fa-solid", "fa-arrow-right-arrow-left");
+let revertBtnIcon_El = createElement("i", "fa-solid", "fa-arrow-right-arrow-left");
 
 
 
 
-playBtn_El.innerHTML= playBtnIcons[0];
+playBtn_El.innerHTML = playBtnIcons[0];
 revertBtn_El.append(revertBtnIcon_El);
 autoplayBtnContainer_El.append(playBtn_El);
 autoplayBtnContainer_El.append(revertBtn_El);
@@ -265,7 +265,43 @@ autoplay{
 }
 */
 
-playBtn_El.addEventListener("click", () => {
+
+let playNextIn_interval
+
+playBtn_El.addEventListener("click", autoplay);
+
+playBtn_El.addEventListener("click", autoplay());
+
+function autoplay() {
+    playBtnCounter++
+    console.log(playBtnCounter, "playBtnCounter");
+    console.log(this)
+    console.log(playBtnCounter, playBtnCounter % 2)
+    if (playBtnCounter % 2 !== 0) {
+
+        //deve partire l'autoplay
+        playBtn_El.innerHTML = playBtnIcons[1];
+       playNextIn_interval = setInterval(nextSlide, 3000);
+    } else {
+        //deve blovvare l'autoplay
+        playBtn_El.innerHTML = playBtnIcons[0];
+        clearInterval(playNextIn_interval);/* ______________________NON VA?!!! */
+    }
+};
+
+revertBtn_El.addEventListener("click", revertAutoplay);
+
+function revertAutoplay() {
+    console.log(revertBtnIcon_El);
+    revertBtnIcon_El = document.querySelector(".btn-revert i");
+    console.log(revertBtnIcon_El);
+     revertBtnIcon_El.style.transform = "rotate(360deg)"
+    revertBtnIcon_El.style.transform = "rotate(0deg)" 
+/*     revertBtnIcon_El.classList.add("rotation"); */
+    
+}
+
+/* playBtn_El.addEventListener("click", () => {
     playBtnCounter++
     console.log(playBtnCounter, "playBtnCounter");
     console.log(this)
@@ -273,28 +309,19 @@ playBtn_El.addEventListener("click", () => {
     if (playBtnCounter % 2 !== 0) {
 
         playBtn_El.innerHTML= playBtnIcons[1];
-        console.log(playBtn_El)
+        
+
+
     }else{
         
         playBtn_El.innerHTML= playBtnIcons[0];
-        console.log(playBtn_El)
+      
     }
 
 });
 
 
-
-
-
-
-
-/* playBtn_El.addEventListener("click", autoplay());
-playBtnCounter++
-console.log(playBtnCounter, "playBtnCounter");
-function autoplay() {
  */
-
-
 
 
 
