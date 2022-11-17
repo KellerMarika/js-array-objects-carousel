@@ -123,7 +123,11 @@ i {
     transition: .5s;
 }
 
-.autoplay-btn-container:hover .my-btn-autoplay {
+#slider-container:hover .autoplay-btn-container {
+    background-color: red;
+}
+
+#slider-container:hover .my-btn-autoplay {
     color: rgb(255, 255, 255);
     transition: background-color .2s;
 }
